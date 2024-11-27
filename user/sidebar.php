@@ -32,21 +32,23 @@
             </li>
 
         <li class="sidebar-item">
-          <a class="sidebar-link <?php echo $pageTitle == 'Lodge Complaint' ? 'active' : ''; ?>" href="./lodge-complaint.php" aria-expanded="false">
+          <a class="sidebar-link <?php echo $pageTitle == 'Make Booking' || $pageTitle == 'Booking' ? 'active' : ''; ?>" href="booking.php" aria-expanded="false">
             <span>
               <iconify-icon icon="hugeicons:book-edit" class="fs-6"></iconify-icon>
             </span>
-            <span class="hide-menu">Lodge Complaint</span>
+            <span class="hide-menu">Make Booking</span>
           </a>
         </li>
+       
         <li class="sidebar-item">
-          <a class="sidebar-link <?php echo $pageTitle == 'Track Complaint' ? 'active' : ''; ?>" href="track-complaint.php" aria-expanded="false">
+          <a class="sidebar-link <?php echo $pageTitle == 'Track Booking' ? 'active' : ''; ?>" href="track-booking.php" aria-expanded="false">
             <span>
               <iconify-icon icon="mingcute:search-fill" class="fs-6"></iconify-icon>
             </span>
-            <span class="hide-menu">Track Complaint</span>
+            <span class="hide-menu">Track Booking</span>
           </a>
         </li>
+
         
         <li class="sidebar-item">
           <a class="sidebar-link <?php echo $pageTitle == 'My Profile' ? 'active' : ''; ?>" href="./my-profile.php" aria-expanded="false">

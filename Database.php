@@ -73,15 +73,35 @@ class Database
     public function readWithJoin($table1, $table2, $joinCondition, $condition = "")
     {
         try {
-            $sql = "SELECT * FROM $table1 
-                INNER JOIN $table2 
-                ON $joinCondition $condition";
+            // Dynamically prefix column names with table names
+            $columns1 = $this->getColumns($table1, $table1 . ".");
+            $columns2 = $this->getColumns($table2, $table2 . ".");
+            $columns = implode(", ", array_merge($columns1, $columns2));
+    
+            $sql = "SELECT $columns FROM $table1 
+                    INNER JOIN $table2 
+                    ON $joinCondition $condition";
+    
             $stmt = $this->conn->query($sql);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             die("Error: " . $e->getMessage());
         }
     }
+    
+    private function getColumns($table, $prefix = "")
+    {
+        try {
+            $sql = "DESCRIBE $table";
+            $stmt = $this->conn->query($sql);
+            $columns = $stmt->fetchAll(PDO::FETCH_COLUMN);
+    
+            return array_map(fn($column) => $prefix . $column, $columns);
+        } catch (PDOException $e) {
+            die("Error fetching columns for $table: " . $e->getMessage());
+        }
+    }
+    
 
     public function update($table, $data, $condition)
     {

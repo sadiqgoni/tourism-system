@@ -17,6 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $itemname = trim($_POST['itemname']);
     $description = trim($_POST['description']);
     $quantity = trim($_POST['quantity']);
+    $amount = trim($_POST['amount']);
     $availability = trim($_POST['availability']);
 
     // Validate fields
@@ -38,6 +39,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors['availability'] = "Availability status is required.";
     }
 
+    if (empty($amount)) {
+        $errors['amount'] = "Amount is required.";
+    }
+
     // Check if inventory item already exists
     $existingItem = $db->read("inventory", "WHERE itemID = '$itemID'");
     if ($existingItem) {
@@ -51,6 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'siteID' => $siteID,
             'description' => $description,
             'quantity' => $quantity,
+            'amount' => $amount,
             'availability' => $availability
         ];
 
@@ -117,6 +123,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <span class="text-danger"><?php echo $errors['quantity']; ?></span>
                             <?php endif; ?>
                         </div>
+
+                        <div class="mb-3">
+                            <label for="amount" class="form-label">Price Per Item</label>
+                            <input type="number" class="form-control" id="amount" name="amount" value="<?php echo htmlspecialchars($amount ?? ''); ?>" required>
+                            <?php if (!empty($errors['amount'])): ?>
+                                <span class="text-danger"><?php echo $errors['amount']; ?></span>
+                            <?php endif; ?>
+                        </div>
+
                         <div class="mb-3">
                             <label for="availability" class="form-label">Availability</label>
                             <select class="form-control" id="availability" name="availability" required>

@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "Booking List";
+$pageTitle = "Booking";
 include "header.php";
 include "sidebar.php";
 
@@ -19,11 +19,8 @@ if (isset($_GET['delete']) && isset($_GET['id'])) {
 }
 
 // Fetch all bookings with user full names and site names using readWithJoin
-$bookings = $db->readWithJoin(
-    "booking",
-    "users",
-    "booking.userId = users.id"
-);
+$bookings = $db->readAll(
+    "booking");
 
 ?>
 
@@ -63,7 +60,10 @@ $bookings = $db->readWithJoin(
                         <?php foreach ($bookings as $booking): ?>
                             <tr>
                                 <td class="ps-0 fw-medium"><?php echo $sn++; ?></td>
-                                <td><?php echo htmlspecialchars($booking['fullname']); ?></td>
+                                <td><?php 
+                                $userId = $booking['userId'];
+                                $user = $db->read("users", "WHERE id = '$userId'");
+                                echo htmlspecialchars($user['fullname']); ?></td>
                                 <td><?php echo htmlspecialchars($booking['bookingDate']); ?></td>
                                 <td><?php echo htmlspecialchars($booking['paymentStatus']); ?></td>
                                 <td><?php echo htmlspecialchars($booking['totalAmount']); ?></td>

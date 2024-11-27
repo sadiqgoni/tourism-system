@@ -27,6 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $siteID = trim($_POST['siteID']);
     $description = trim($_POST['description']);
     $quantity = trim($_POST['quantity']);
+    $amount = trim($_POST['amount']);
     $availability = $_POST['availability'];
 
     // Validate fields
@@ -43,6 +44,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors['quantity'] = "Valid quantity is required.";
     }
 
+    if (empty($amount)) {
+        $errors['amount'] = "Valid amount is required.";
+    }
+
     // If no errors, proceed with updating the inventory item
     if (empty($errors)) {
         $inventoryData = [
@@ -50,6 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'siteID' => $siteID,
             'description' => $description,
             'quantity' => $quantity,
+            'amount' => $amount,
             'availability' => $availability
         ];
 
@@ -114,6 +120,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <span class="text-danger"><?php echo $errors['quantity']; ?></span>
                             <?php endif; ?>
                         </div>
+
+                        <div class="mb-3">
+                            <label for="amount" class="form-label">Amount</label>
+                            <input type="number" class="form-control" id="amount" name="amount" value="<?php echo htmlspecialchars($item['amount'] ?? ''); ?>" required>
+                            <?php if (!empty($errors['amount'])): ?>
+                                <span class="text-danger"><?php echo $errors['amount']; ?></span>
+                            <?php endif; ?>
+                        </div>
+
                         <div class="mb-3">
                             <label for="availability" class="form-label">Availability</label>
                             <select class="form-control" id="availability" name="availability" required>

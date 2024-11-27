@@ -52,9 +52,9 @@ $site_setting = $db->read("setting", "WHERE id=1");
 				<ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu float-right">
 					<li class="active"><a href="index.php">Home</a></li>
 					
-					<li><a href="services.php">Services</a></li>
-					<li><a href="about.php">About</a></li>
-					<li><a href="contact.php">Contact Us</a></li>
+					<li><a href="#services">Services</a></li>
+					<li><a href="#about">About</a></li>
+					<li><a href="#contact">Contact Us</a></li>
                     <li class="has-children">
 						<a href="#">Account</a>
 						<ul class="dropdown">

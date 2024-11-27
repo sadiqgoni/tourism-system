@@ -15,6 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = trim($_POST['name']);
     $description = trim($_POST['description']);
     $location = trim($_POST['location']);
+    $amount = trim($_POST['amount']);
     $availability = isset($_POST['availability']) ? 1 : 0;
     $images = $_FILES['images'];
 
@@ -28,6 +29,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($location)) {
         $errors['location'] = "Location is required.";
     }
+    if (empty($amount)) {
+        $errors['amount'] = "Amount is required.";
+    }
+
     if (empty($images['name'][0])) {
         $errors['images'] = "At least one image is required.";
     }
@@ -55,6 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'name' => $name,
             'description' => $description,
             'location' => $location,
+            'amount' => $amount,
             'availability' => $availability,
             'images' => $imagesSerialized,
             'status' => 'active'
@@ -107,6 +113,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <span class="text-danger"><?php echo $errors['location']; ?></span>
                             <?php endif; ?>
                         </div>
+
+                        <div class="mb-3">
+                            <label for="amount" class="form-label">Amount to Book</label>
+                            <input type="text" class="form-control" id="amount" name="amount" value="<?php echo htmlspecialchars($amount ?? ''); ?>" required>
+                            <?php if (!empty($errors['amount'])): ?>
+                                <span class="text-danger"><?php echo $errors['amount']; ?></span>
+                            <?php endif; ?>
+                        </div>
+
                         <div class="mb-3">
                             <label for="availability" class="form-label">Availability</label>
                             <select class="form-control" id="availability" name="availability" required>
