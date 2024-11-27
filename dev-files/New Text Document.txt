@@ -1,0 +1,6 @@
+The primary classes include:
+•	User: Manages user registration, login, and profile data. Attributes include userID, name, email, password, and profileInfo. Operations include register(), login(), updateProfile(), and viewSavedSites().
+•	TouristSite: Contains data for each tourism site, including siteID, name, description, location, availability, and images. Operations like viewDetails(), updateInfo(), and checkAvailability() are provided to manage and access site information.
+•	Booking: Manages booking records, tracking bookingID, userID, siteID, bookingDate, and status. Operations such as createBooking(), cancelBooking(), and viewBookingStatus() enable the system to handle booking-related tasks.
+•	Administrator: Handles the administration of site data, user management, and report generation. Attributes include adminID, name, contactInfo, and role. Operations include updateSiteInfo(), generateReport(), and manageUserAccess().
+•	Inventory: Oversees resources and items related to tourist sites, such as equipment for events or guided tours. Attributes include itemID, description, quantity, and availability. Operations like addItem(), updateInventory(), and trackUsage() ensure inventory is managed effectively.
