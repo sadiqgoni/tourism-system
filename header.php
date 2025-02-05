@@ -33,8 +33,6 @@ $site_setting = $db->read("setting", "WHERE id=1") ?: [];
     <link rel="stylesheet" href="assets/css/daterangepicker.css">
     <link rel="stylesheet" href="assets/css/aos.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <!-- Add custom CSS for new features -->
-    <link rel="stylesheet" href="assets/css/custom.css">
 
     <title><?php echo isset($site_setting['site_name']) ? $site_setting['site_name'] : 'Tourism System'; ?> | <?php echo isset($pageTitle) ? $pageTitle : ''; ?></title>
 </head>
@@ -88,7 +86,7 @@ $site_setting = $db->read("setting", "WHERE id=1") ?: [];
         <div class="container">
             <a class="navbar-brand" href="index.php">
                 <i class="fas fa-globe-americas mr-2"></i>
-                Tourism System
+                Tourism Info System
             </a>
             
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -104,11 +102,19 @@ $site_setting = $db->read("setting", "WHERE id=1") ?: [];
                         <a class="nav-link" href="#services">Services</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="user/">User Login</a>
+                        <a class="nav-link" href="#destinations">Destinations</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="admin/">Admin Login</a>
+                        <a class="nav-link" href="#about">About Us</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact Us</a>
+                    </li>
+                  
+                    <li class="nav-item">
+                        <a class="nav-link" href="user/">User Login</a>
+                    </li>
+                  
                 </ul>
             </div>
         </div>

@@ -130,7 +130,7 @@ $admins = $db->readAll("admins");
 
 
 <!-- Featured Destinations -->
-<div class="untree_co-section">
+<div class="untree_co-section" id="destinations">
     <div class="container">
         <div class="row text-center justify-content-center mb-5">
             <div class="col-lg-7">
@@ -163,7 +163,7 @@ $admins = $db->readAll("admins");
                                 <p class="card-text">
                                     <?php echo htmlspecialchars(substr($site['description'], 0, 100)) . '...'; ?></p>
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <span class="price">From $<?php echo number_format($site['amount'], 2); ?></span>
+                                    <span class="price">From ₦ <?php echo number_format($site['amount'], 2); ?></span>
                                     <a href="view-site.php?siteID=<?php echo urlencode($site['siteID']); ?>"
                                         class="btn btn-sm btn-outline-primary">View Details</a>
                                 </div>
@@ -228,7 +228,7 @@ $admins = $db->readAll("admins");
     </div>
 </div>
 
-<div class="untree_co-section">
+<div class="untree_co-section" id="about">
     <div class="container">
         <div class="row justify-content-between align-items-center">
 
@@ -269,14 +269,14 @@ $admins = $db->readAll("admins");
     </div>
 </div>
 
-<div class="py-5 cta-section">
+<div class="py-5 cta-section" id="contact">
     <div class="container">
         <div class="row text-center">
             <div class="col-md-12">
                 <h2 class="mb-2 text-white">Explore the World with Us. Contact Us Today</h2>
                 <p class="mb-4 lead text-white text-white-opacity">Join us for an unforgettable travel experience. Our
                     team is ready to assist you with all your travel needs.</p>
-                <p class="mb-0"><a href="user/" class="btn btn-outline-white text-white btn-md font-weight-bold">Get in
+                <p class="mb-0"><a href="user/booking.php" class="btn btn-outline-white text-white btn-md font-weight-bold">Get in
                         touch</a></p>
             </div>
         </div>

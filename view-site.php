@@ -72,7 +72,7 @@ $firstImage = 'admin/' . htmlspecialchars($images[0]);
                 <div class="sidebar-box bg-light p-4">
                     <h3 class="heading-2">Site Details</h3>
                     <div class="price-wrap mb-4">
-                        <span class="price">$<?php echo number_format($site['amount'], 2); ?></span>
+                        <span class="price">₦<?php echo number_format($site['amount'], 2); ?></span>
                         <span class="per">/person</span>
                     </div>
                     <div class="mb-4">
