@@ -2,14 +2,19 @@
 <html lang="en">
 
 <?php
-include('../Database.php');
+// Enable error reporting for debugging
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Include Database class only if not already included
+require_once __DIR__ . '/../Database.php';
 $db = new Database();
 session_start();
 
-//Check if user is logged In
+// Check if admin is logged in
 if (!isset($_SESSION['admin'])) {
-  header('location: login.php');
-  exit();
+    header("Location: login.php");
+    exit;
 }
 
 //Logout user
@@ -21,8 +26,8 @@ if (array_key_exists('logout', $_GET)) {
   exit();
 }
 
-
-$site_setting = $db->read("setting", "WHERE id=1");
+$site_setting = $db->read("setting", "WHERE id=1") ?: [];
+$pageTitle = isset($pageTitle) ? $pageTitle : "Admin Dashboard";
 ?>
 
 <head>

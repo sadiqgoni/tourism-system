@@ -11,6 +11,18 @@ $adminId = (int)$_SESSION['admin'];
 $errors = [];
 $success = false;
 
+// Define upload directory with absolute path
+$uploadsDir = __DIR__ . '/assets/uploads/';
+if (!file_exists($uploadsDir)) {
+    // Create directory with proper permissions
+    if (!mkdir($uploadsDir, 0777, true)) {
+        $errors['general'] = "Failed to create uploads directory. Please check permissions.";
+    } else {
+        // Ensure proper permissions after creation
+        chmod($uploadsDir, 0777);
+    }
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = trim($_POST['name']);
     $description = trim($_POST['description']);
@@ -48,32 +60,53 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Handle image uploads
         $uploadedImages = [];
         foreach ($images['name'] as $key => $imageName) {
-            $imageTmpName = $images['tmp_name'][$key];
-            $imagePath = 'assets/uploads/' . basename($imageName);
-            if (move_uploaded_file($imageTmpName, $imagePath)) {
-                $uploadedImages[] = $imagePath;
+            if ($images['error'][$key] === UPLOAD_ERR_OK) {
+                $tmp_name = $images['tmp_name'][$key];
+                
+                // Generate unique filename
+                $extension = strtolower(pathinfo($imageName, PATHINFO_EXTENSION));
+                $newFilename = uniqid() . '_' . time() . '.' . $extension;
+                $uploadPath = $uploadsDir . $newFilename;
+                
+                // Only allow certain image types
+                $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
+                if (in_array($extension, $allowedTypes)) {
+                    if (move_uploaded_file($tmp_name, $uploadPath)) {
+                        // Store relative path in database
+                        $uploadedImages[] = 'assets/uploads/' . $newFilename;
+                    } else {
+                        $errors['images'] = "Failed to upload image: " . $imageName . ". Please check directory permissions.";
+                        break;
+                    }
+                } else {
+                    $errors['images'] = "Invalid file type. Allowed types: " . implode(', ', $allowedTypes);
+                    break;
+                }
             }
         }
-        $imagesSerialized = serialize($uploadedImages);
 
-        $siteData = [
-            'name' => $name,
-            'description' => $description,
-            'location' => $location,
-            'amount' => $amount,
-            'availability' => $availability,
-            'images' => $imagesSerialized,
-            'status' => 'active'
-        ];
+        if (empty($errors)) {
+            $imagesSerialized = serialize($uploadedImages);
 
-        try {
-            $db->create("sites", $siteData);
-            $success = true;
-            $_SESSION['success'] = 'Site added successfully';
-            header("Location: sites.php");
-            exit();
-        } catch (Exception $e) {
-            $errors['general'] = "Failed to add site. Please try again.";
+            $siteData = [
+                'name' => $name,
+                'description' => $description,
+                'location' => $location,
+                'amount' => $amount,
+                'availability' => $availability,
+                'images' => $imagesSerialized,
+                'status' => 'active'
+            ];
+
+            try {
+                $db->create("sites", $siteData);
+                $success = true;
+                $_SESSION['success'] = 'Site added successfully';
+                header("Location: sites.php");
+                exit();
+            } catch (Exception $e) {
+                $errors['general'] = "Failed to add site. Please try again.";
+            }
         }
     }
 }
