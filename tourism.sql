@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jan 15, 2025 at 08:33 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Host: localhost
+-- Generation Time: Feb 05, 2025 at 11:13 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,8 +41,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `username`, `password`, `created_at`, `updated_at`, `role`) VALUES
-(1, 'admin', '$2y$10$13spIOLxFFiiPNBun0ZGx.xdVX0I7AE4kKcWp4arSajyS2xgCRf2W', '2023-09-07 05:26:37', '2023-09-07 05:26:37', 'admin'),
-(2, 'Latimax4all@gmail.com', '$2y$10$0qp/oo5LB6lGbsr8.iY4Q.LOlJZfhgNKLseUK9x2oc8.RffCuonK.', '2024-11-23 21:59:54', '2024-11-23 22:07:16', 'subadmin');
+(1, 'Admin', '$2a$12$a800eOh6bhtWp0mYhPaPHO5M5GXc8fZ0Sv1775Rwydr3ixiX/.fh2', NULL, NULL, 'Admin');
 
 -- --------------------------------------------------------
 
@@ -62,14 +61,6 @@ CREATE TABLE `booking` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `booking`
---
-
-INSERT INTO `booking` (`id`, `userId`, `siteId`, `description`, `bookingDate`, `status`, `paymentStatus`, `totalAmount`, `created_at`, `updated_at`) VALUES
-(4, 1, 2, 'Site: Shiro Waterfallsss, Item: Tourism Jacket (₦345,000.00)', '2024-11-27', 'pending', 'unpaid', 375000.00, '2024-11-27 09:57:57', '2024-11-27 10:16:55'),
-(5, 1, 3, 'Site: Iroko Hill, Item: Flying skte (₦1,935.00)', '2024-11-27', 'pending', 'unpaid', 36335.00, '2024-11-27 10:25:39', '2024-11-27 10:25:39');
 
 -- --------------------------------------------------------
 
@@ -95,9 +86,16 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`itemID`, `itemName`, `siteID`, `description`, `quantity`, `availability`, `amount`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(3, 'Tourism Jacket', 2, 'Tourism Jacket', 3, 1, 345000, '2024-11-27 05:52:14', '2024-11-27 09:22:39', NULL),
-(4, 'Basket', 2, 'basjet', 2, 1, 100, '2024-11-27 10:19:08', '2024-11-27 10:19:08', NULL),
-(5, 'Flying skte', 3, 'Flying skte', 2, 1, 1935, '2024-11-27 10:20:09', '2024-11-27 10:20:09', NULL);
+(1, 'Wildlife Photography Prints', 1, '....', 100, 1, 1000, '2025-02-05 10:07:14', '2025-02-05 10:07:14', NULL),
+(2, 'Traditional Hausa Crafts & Beads', 1, '..', 34, 1, 200, '2025-02-05 10:07:29', '2025-02-05 10:07:29', NULL),
+(3, 'Custom Safari Hats & T-shirts', 1, '...', 33, 1, 2000, '2025-02-05 10:07:44', '2025-02-05 10:07:44', NULL),
+(4, 'Locally Made Wood Carvings & Sculptures', 2, '...', 32, 1, 300, '2025-02-05 10:08:10', '2025-02-05 10:08:10', NULL),
+(5, 'Handwoven Aso-Oke & Traditional Fabrics', 2, '...', 32, 1, 32000, '2025-02-05 10:08:26', '2025-02-05 10:08:26', NULL),
+(6, 'Custom-Made Adventure Gear', 2, '...', 32, 1, 2390, '2025-02-05 10:08:39', '2025-02-05 10:08:39', NULL),
+(7, 'Zuma Rock-Themed Artwork & Paintings', 3, ',,,', 43, 1, 20000, '2025-02-05 10:08:59', '2025-02-05 10:08:59', NULL),
+(8, 'Handmade Leather Goods (Shoes, Bags)', 3, '...', 93, 1, 9440, '2025-02-05 10:09:16', '2025-02-05 10:09:16', NULL),
+(9, 'Adire (Tie-Dye) Fabrics & Clothing', 4, ',,,', 43, 1, 8999, '2025-02-05 10:09:29', '2025-02-05 10:09:29', NULL),
+(10, 'Wildlife-Themed Merchandise (T-shirts, Caps)', 5, '...', 12, 1, 3000, '2025-02-05 10:09:48', '2025-02-05 10:09:48', NULL);
 
 -- --------------------------------------------------------
 
@@ -146,8 +144,11 @@ CREATE TABLE `sites` (
 --
 
 INSERT INTO `sites` (`siteID`, `name`, `description`, `location`, `availability`, `images`, `amount`, `status`, `created_at`, `updated_at`) VALUES
-(2, 'Shiro Waterfallsss', 'Shiro Waterfall', 'Street Chunky, MS 39323', 1, 'a:2:{i:0;s:24:\"assets/uploads/about.png\";i:1;s:37:\"assets/uploads/2-removebg-preview.png\";}', 30000, 'active', '2024-11-26 21:37:59', '2024-11-27 09:26:32'),
-(3, 'Iroko Hill', 'Iroko Hill', 'Street Chunky, MS 39323', 1, 'a:1:{i:0;s:24:\"assets/uploads/img-1.jpg\";}', 34400, 'active', '2024-11-27 10:19:41', '2024-11-27 10:23:00');
+(1, 'Yankari National Park', 'Nigeria\'s largest wildlife park, home to elephants, baboons, antelopes, and the warm Wikki Springs. Great for safari experiences.', 'Bauchi State', 1, 'a:1:{i:0;s:81:\"assets/uploads/cjjapiyd9jfmyc5tfgbbiecmv0arge6lfxtrkofz-1656785530-compressed.jpg\";}', 25000, 'active', '2025-02-05 09:58:32', '2025-02-05 09:59:16'),
+(2, 'Obudu Mountain Resort', 'A beautiful mountain retreat with cable cars, waterfalls, and hiking trails. Ideal for nature lovers and adventure seekers.', 'Cross River State', 1, 'a:1:{i:0;s:43:\"assets/uploads/67a337493d948_1738749769.jpg\";}', 30000, 'active', '2025-02-05 10:02:49', '2025-02-05 10:02:49'),
+(3, 'Zuma Rock', 'A massive monolithic rock with a face-like appearance, considered a symbol of strength and resilience in Nigeria.', 'Niger State (near Abuja)', 1, 'a:1:{i:0;s:43:\"assets/uploads/67a3376336536_1738749795.jpg\";}', 10000, 'active', '2025-02-05 10:03:15', '2025-02-05 10:03:15'),
+(4, 'Olumo Rock', 'A historical rock formation used as a natural fortress during inter-tribal wars, offering breathtaking views of Abeokuta city.', 'Ogun State', 1, 'a:1:{i:0;s:43:\"assets/uploads/67a33794c49df_1738749844.jpg\";}', 15000, 'active', '2025-02-05 10:04:04', '2025-02-05 10:04:04'),
+(5, 'Lekki Conservation Centre', 'A nature reserve with a canopy walkway, diverse wildlife, and beautiful landscapes, perfect for eco-tourism.', 'Lagos State', 1, 'a:1:{i:0;s:43:\"assets/uploads/67a337be99061_1738749886.jpg\";}', 43000, 'active', '2025-02-05 10:04:46', '2025-02-05 10:04:46');
 
 -- --------------------------------------------------------
 
@@ -167,13 +168,6 @@ CREATE TABLE `users` (
   `status` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `email`, `password`, `fullname`, `gender`, `phone`, `state`, `country`, `status`, `created_at`) VALUES
-(1, 'Latimax4all@gmail.com', '$2y$10$E1DuXk2xXq/aqey/qQ/4xO5ptujVl6BjgpENgXlTWdgbc2bAFaOTW', 'Shaibu Abdulateef', 'male', '09063883519', 'Edo', 'Nigeria', 'active', '2024-11-25 22:12:02');
 
 --
 -- Indexes for dumped tables
@@ -226,19 +220,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `itemID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `itemID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `setting`
@@ -250,13 +244,13 @@ ALTER TABLE `setting`
 -- AUTO_INCREMENT for table `sites`
 --
 ALTER TABLE `sites`
-  MODIFY `siteID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `siteID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
